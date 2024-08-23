@@ -1,0 +1,57 @@
+.rootLayout {
+    background-color: #001417;
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+
+
+
+.logo {
+    font-family: 'Cursive';
+    color: #00e0d0;
+    font-size: 24px;
+}
+
+.nav-link-blog {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #fff;
+
+}
+
+.get-started-btn {
+    background-color: #00e0d0;
+    color: #001314;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    margin-right: 1rem;
+}
+
+@media (max-width: 540px) {
+    .logo {
+        display: none;
+    }
+}
+
+@media (max-width: 465px) {
+    .nav-link-blog:last-child {
+        display: none;
+    }
+}
+
+@media (max-width: 335px) {
+    .get-started-btn {
+        display: none;
+    }
+
+}

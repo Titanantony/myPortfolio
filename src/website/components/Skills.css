@@ -1,0 +1,45 @@
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px;
+  padding-top: 0px;
+}
+
+.skill-category {
+  flex: 1 1 30%;
+  margin: 10px;
+  margin-top: 0px;
+  box-sizing: border-box;
+}
+
+.skill-category h3 {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.skill-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.skill-item span:last-child {
+  font-family: 'Arial', sans-serif;
+  color: gold;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .skill-category {
+    flex: 1 1 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .skill-category {
+    flex: 1 1 100%;
+  }
+}

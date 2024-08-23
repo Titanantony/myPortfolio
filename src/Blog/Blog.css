@@ -1,0 +1,275 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #001417;
+    color: #fff;
+}
+
+.design-journal {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    display: flex;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.sidebar {
+    display: none;
+    width: 20%;
+    padding: 2rem;
+    border-right: 1px solid #e5e5e5;
+}
+
+.sidebar-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.sidebar-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-list li {
+    margin-bottom: 0.5rem;
+}
+
+.content {
+    width: 100%;
+    padding: 2rem;
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background-color: #f3f4f6;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    color: #001417;
+}
+
+.main-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+.featured-article {
+    display: flex;
+    /* height: 30%; */
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.featured-image {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    height: 80%;
+
+}
+
+.featured-image img {
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-content {
+    margin: auto;
+}
+
+.featured-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.featured-text {
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+}
+
+.author-image {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    margin-right: 0.5rem;
+}
+
+.author-name {
+    font-size: 0.875rem;
+    /* margin-right: 0.5rem; */
+}
+
+.publish-date {
+    font-size: 0.7rem;
+    color: #fff;
+}
+
+.articles-grid {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.article-image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.article-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.article-excerpt {
+    font-size: 0.875rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+/* .pagination {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination-btn {
+    color: #fff;
+    background: none;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+} */
+
+.footer {
+    /* padding: 50px 0; */
+    color: #ffffff;
+    background-color: #04353c;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 100px;
+}
+
+.footer-left,
+.footer-right {
+    /* background-color: transparent; */
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.footer-left h2 {
+    font-size: 24px;
+}
+
+.footer-left p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.social-links a {
+    color: #00e0d0;
+    margin-right: 10px;
+    font-size: 24px;
+}
+
+.footer-contact {
+    margin-bottom: 20px;
+}
+
+.footer-contact h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.footer-contact p,
+.footer-contact a {
+    margin: 5px 0;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.footer-contact a:hover {
+    text-decoration: underline;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.article-image {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.featured-image {
+    height: 18rem;
+}
+
+
+
+@media (min-width: 768px) {
+    .sidebar {
+        display: block;
+    }
+
+    .content {
+        width: 65%;
+    }
+
+    .featured-article {
+        flex-direction: row;
+        gap: 2rem;
+    }
+
+    .featured-image {
+        flex: 1;
+    }
+
+    .featured-content {
+        flex: 1;
+    }
+
+    .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (min-width: 1024px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+}

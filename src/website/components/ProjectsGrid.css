@@ -1,0 +1,31 @@
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 25px;
+}
+.grid-item {
+  background-color: transparent;
+  padding: 1rem;
+  border-radius: 10px; /* Remove the comma and color value */
+  border: 1px solid #00e0d0; /* Add this line if you want a border with the specified color */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.links {
+  color: #00e0d0;
+  text-decoration: none;
+  display: block;
+  text-align: end;
+  margin-bottom: 10px;
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Add any global styles here */
