@@ -11,7 +11,7 @@ import SocialLinks from '../SharedComponents/SocialLinks'
 const Portfolio = () => {
   return (
     <div className='portfolio'>
-      <section className='main-content'>
+      <div className='main-content'>
         <Left>
           {' '}
           <div className='text-content'>
@@ -52,7 +52,7 @@ const Portfolio = () => {
             <img src={profileImage} alt='Antony Kinuthia' />
           </div>
         </Right>
-      </section>
+      </div>
       <SubHeading className='title' id='projects'>
         My Projects --
       </SubHeading>
@@ -80,15 +80,19 @@ const SubHeading = styled.div`
   margin-bottom: 7px;
 `
 const Left = styled.div`
+
   @media (min-width: 768px) {
     width: 50%;
   }
 `
 const Right = styled.div`
   @media (min-width: 768px) {
-    width: 30%;
+    
+    width: 40%;
     height: 50%;
   }
 `
+
+
 
 export default Portfolio
