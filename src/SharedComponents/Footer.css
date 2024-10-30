@@ -1,13 +1,10 @@
-.footer {
-  padding: 50px 0;
-  color: #ffffff;
-}
-
 .footer-container {
+  background-color: #03282e;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 0 100px;
+
 }
 
 .footer-left,

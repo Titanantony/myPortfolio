@@ -4,7 +4,6 @@ import SocialLinks from './SocialLinks'
 
 const Footer = () => {
   return (
-    <footer className='footer'>
       <div className='footer-container'>
         <div className='footer-left'>
           <h2>Let’s Connect Here</h2>
@@ -37,7 +36,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
   )
 }
 
