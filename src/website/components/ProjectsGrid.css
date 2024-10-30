@@ -4,15 +4,21 @@
   gap: 1rem;
   margin-bottom: 25px;
 }
+
 .grid-item {
-  background-color: transparent;
+  background-color: #03282e;
   padding: 1rem;
-  border-radius: 10px; /* Remove the comma and color value */
-  border: 1px solid #00e0d0; /* Add this line if you want a border with the specified color */
+  border-radius: 10px;
+  /* Remove the comma and color value */
+  border: 1px solid #00e0d0;
+  /* Add this line if you want a border with the specified color */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+
 }
+
 .links {
   color: #00e0d0;
   text-decoration: none;
@@ -21,11 +27,26 @@
   margin-bottom: 10px;
 }
 
+@media (min-width: 769px) {
+  .grid-item:hover {
+    transform: scale(1.05);
+    /* Zoom-in effect */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    /* Add shadow */
+  }
+}
+
 /* Media queries for smaller screens */
 @media (max-width: 768px) {
   .projects-grid {
     grid-template-columns: 1fr;
   }
+
+  .grid-item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
 }
 
 /* Add any global styles here */
