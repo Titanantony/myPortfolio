@@ -20,9 +20,23 @@ body {
 
 .sidebar {
     display: none;
+    position: fixed;
+    top: 10%;
+    left: 0;
     width: 20%;
-    padding: 2rem;
+    height: 50%;
     border-right: 1px solid #e5e5e5;
+    overflow-y: auto;
+    padding: 2rem;
+    z-index: 1;
+    /* Ensure the sidebar is on top of other content */
+}
+
+.content {
+
+    /* Adjust the content width to make space for the sidebar */
+    width: 100%;
+    padding: 2rem;
 }
 
 .sidebar-title {
@@ -41,10 +55,10 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.content {
+/* .content {
     width: 100%;
     padding: 2rem;
-}
+} */
 
 .tag {
     display: inline-block;
@@ -246,6 +260,7 @@ body {
     }
 
     .content {
+        margin-left: 20%;
         width: 65%;
     }
 
