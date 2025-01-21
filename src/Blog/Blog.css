@@ -37,6 +37,7 @@ body {
     /* Adjust the content width to make space for the sidebar */
     width: 100%;
     padding: 2rem;
+    padding-top: 0rem;
 }
 
 .sidebar-title {
@@ -55,10 +56,6 @@ body {
     margin-bottom: 0.5rem;
 }
 
-/* .content {
-    width: 100%;
-    padding: 2rem;
-} */
 
 .tag {
     display: inline-block;
@@ -66,6 +63,7 @@ body {
     background-color: #f3f4f6;
     border-radius: 9999px;
     font-size: 0.875rem;
+    margin-right: 0.4rem;
     margin-bottom: 1rem;
     color: #001417;
 }

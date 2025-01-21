@@ -47,10 +47,8 @@ const MyBlog = ({ onFilterLatest }) => {
     setArticles(sortedArticles.slice(1)); // Update the remaining articles
   };
 
-  // Pass the function to the parent via props
-  useEffect(() => {
-    if (onFilterLatest) onFilterLatest(handleFilterLatest);
-  }, [onFilterLatest]);
+
+
 
   return (
     <div className="design-journal">
@@ -58,17 +56,32 @@ const MyBlog = ({ onFilterLatest }) => {
         <aside className="sidebar">
           <h2 className="sidebar-title">Popular&nbsp;content</h2>
           <ul className="sidebar-list">
-            <li>➡️ Design</li>
-            <li>➡️ Product</li>
-            <li>➡️ Software Engineering</li>
-            <li>➡️ Customer Success</li>
-            <li>➡️ Leadership</li>
-            <li>➡️ Management</li>
+            <li>➡️ Project Showcases</li>
+            <li>➡️ Technical Guides</li>
+            <li>➡️ Industry News</li>
+            <li>➡️ Opinion Pieces</li>
+            <li>➡️ Community Spotlights</li>
+            <li>➡️ Event Summaries</li>
           </ul>
         </aside>
 
         <div className="content">
-          <div className="tag">Recently Published</div>
+          <div className="tag" onClick={handleFilterLatest} style={{ cursor: 'pointer' }}>
+            Recently Published
+          </div>
+          <div className='tag'  style={{cursor: 'pointer'}}>
+            AI
+          </div>
+          <div className='tag'  style={{cursor: 'pointer'}}>
+            Flutter
+          </div>
+          <div className='tag'  style={{cursor: 'pointer'}}>
+            NodeJs
+          </div>
+          <div className='tag'  style={{cursor: 'pointer'}}>
+            Github
+          </div>
+
 
           {featuredArticle && (
             <div className="featured-article">
