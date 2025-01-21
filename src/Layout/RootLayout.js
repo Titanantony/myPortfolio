@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import './RootLayout.css';
 
 function RootLayout() {
-  const [filterLatest, setFilterLatest] = useState(null);
   const location = useLocation();
 
   const isHomePage = location.pathname === '/';
@@ -11,12 +10,8 @@ function RootLayout() {
   const linkTo = isHomePage ? '/myBlog' : '/';
 
   const blogLinks = (
-    <div className="blog-nav">
-      <nav className="navbar">
-        <ul>
-          <li onClick={() => filterLatest && filterLatest()}>Latest</li>
-        </ul>
-      </nav>
+    <div className="nav-link-blog">    
+        My blog Articles
     </div>
   );
 
@@ -48,7 +43,7 @@ function RootLayout() {
       </nav>
 
       <main>
-        <Outlet context={{ setFilterLatest }} />
+        <Outlet />
       </main>
     </div>
   );
