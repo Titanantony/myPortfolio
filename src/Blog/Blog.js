@@ -4,32 +4,33 @@ import './Blog.css';
 import Footer from '../SharedComponents/Footer';
 import { db } from './Firebase/Firebase';
 
+const FILTERS = {
+  LATEST: 'Recently Published',
+  AI: 'AI',
+  FLUTTER: 'Flutter',
+  NODEJS: 'NodeJs',
+  GITHUB: 'Github'
+};
+
 const MyBlog = ({ onFilterLatest }) => {
   const [featuredArticle, setFeaturedArticle] = useState(null);
   const [articles, setArticles] = useState([]);
-  const [allArticles, setAllArticles] = useState([]); // Store all articles
+  const [allArticles, setAllArticles] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [activeFilter, setActiveFilter] = useState(FILTERS.LATEST);
 
+  // Data fetching
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const articlesCollection = collection(db, 'article');
-        const articlesSnapshot = await getDocs(articlesCollection);
+        const articlesSnapshot = await getDocs(collection(db, 'article'));
+        if (articlesSnapshot.empty) return;
 
-        if (!articlesSnapshot.empty) {
-          const articlesList = articlesSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-            publishDate: doc.data().publishDate?.toDate?.() || new Date(), // Convert timestamp to date
-          }));
-
-          const sortedArticles = articlesList.sort(
-            (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
-          );
-
-          setAllArticles(sortedArticles); // Store all articles
-          setFeaturedArticle(sortedArticles[0]); // Set featured article
-          setArticles(sortedArticles.slice(1)); // Set remaining articles
-        }
+        const articlesList = articlesSnapshot.docs.map(parseArticleData);
+        const sortedArticles = sortArticlesByDate(articlesList);
+        
+        updateArticlesDisplay(sortedArticles);
+        setAllArticles(sortedArticles);
       } catch (error) {
         console.error('Error fetching articles:', error);
       }
@@ -38,17 +39,59 @@ const MyBlog = ({ onFilterLatest }) => {
     fetchArticles();
   }, []);
 
-  const handleFilterLatest = () => {
-    const sortedArticles = [...allArticles].sort(
-      (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
-    );
+  // Article data helpers
+  const parseArticleData = doc => ({
+    id: doc.id,
+    ...doc.data(),
+    publishDate: doc.data().publishDate?.toDate?.() || new Date()
+  });
 
-    setFeaturedArticle(sortedArticles[0]); // Update the featured article
-    setArticles(sortedArticles.slice(1)); // Update the remaining articles
+  const sortArticlesByDate = articles => 
+    [...articles].sort((a, b) => b.publishDate - a.publishDate);
+
+  // Filter handlers
+  const handleFilter = (keyword, filterName) => {
+    setActiveFilter(filterName);
+    const filtered = allArticles.filter(article => 
+      article.hashTag?.toLowerCase().includes(keyword.toLowerCase())
+    );
+    handleFilterResponse(filtered, keyword);
   };
 
+  const handleLatestFilter = () => {
+    setActiveFilter(FILTERS.LATEST);
+    const sorted = sortArticlesByDate(allArticles);
+    handleFilterResponse(sorted, 'latest articles');
+  };
 
+  // Common response handler
+  const handleFilterResponse = (articles, filterTerm) => {
+    if (articles.length === 0) {
+      setErrorMessage(`No articles found for ${filterTerm}`);
+      updateArticlesDisplay([]);
+      return;
+    }
 
+    setErrorMessage('');
+    updateArticlesDisplay(articles);
+  };
+
+  const updateArticlesDisplay = articles => {
+    setFeaturedArticle(articles[0] || null);
+    setArticles(articles.slice(1));
+  };
+
+  // Filter button generator
+  const createFilterButton = (filterName, keyword) => (
+    <button
+      key={filterName}
+      className={`tag ${activeFilter === filterName ? 'active' : ''}`}
+      onClick={() => handleFilter(keyword, filterName)}
+      aria-pressed={activeFilter === filterName}
+    >
+      {filterName}
+    </button>
+  );
 
   return (
     <div className="design-journal">
@@ -56,80 +99,43 @@ const MyBlog = ({ onFilterLatest }) => {
         <aside className="sidebar">
           <h2 className="sidebar-title">Popular&nbsp;content</h2>
           <ul className="sidebar-list">
-            <li>➡️ Project Showcases</li>
-            <li>➡️ Technical Guides</li>
-            <li>➡️ Industry News</li>
-            <li>➡️ Opinion Pieces</li>
-            <li>➡️ Community Spotlights</li>
-            <li>➡️ Event Summaries</li>
+            {['Project Showcases', 'Technical Guides', 'Industry News', 
+              'Opinion Pieces', 'Community Spotlights', 'Event Summaries']
+              .map((item, index) => (
+                <li key={index}>➡️ {item}</li>
+              ))}
           </ul>
         </aside>
 
         <div className="content">
-          <div className="tag" onClick={handleFilterLatest} style={{ cursor: 'pointer' }}>
-            Recently Published
+          <div className="filter-bar">
+            <button
+              className={`tag ${activeFilter === FILTERS.LATEST ? 'active' : ''}`}
+              onClick={handleLatestFilter}
+              aria-pressed={activeFilter === FILTERS.LATEST}
+            >
+              {FILTERS.LATEST}
+            </button>
+            {[
+              [FILTERS.AI, 'ai'],
+              [FILTERS.FLUTTER, 'flutter'],
+              [FILTERS.NODEJS, 'nodejs'],
+              [FILTERS.GITHUB, 'github']
+            ].map(([filter, keyword]) => createFilterButton(filter, keyword))}
           </div>
-          <div className='tag'  style={{cursor: 'pointer'}}>
-            AI
-          </div>
-          <div className='tag'  style={{cursor: 'pointer'}}>
-            Flutter
-          </div>
-          <div className='tag'  style={{cursor: 'pointer'}}>
-            NodeJs
-          </div>
-          <div className='tag'  style={{cursor: 'pointer'}}>
-            Github
-          </div>
-
 
           {featuredArticle && (
-            <div className="featured-article">
-              <div className="featured-image">
-                <img src={featuredArticle.imageUrl} alt="Featured article" />
-              </div>
-              <div className="featured-content">
-                <h2 className="featured-title">{featuredArticle.title}</h2>
-                <p className="featured-text">{featuredArticle.excerpt}</p>
-                <div className="author-info">
-                  <img
-                    src={featuredArticle.subImageUrl}
-                    alt="Author"
-                    className="author-image"
-                  />
-                  <span className="author-name">{featuredArticle.subTitle}</span>
-                </div>
-              </div>
-            </div>
+            <FeaturedArticleComponent article={featuredArticle} />
           )}
 
           <div className="articles-grid">
-            {articles.map((article) => (
-              <div key={article.id} className="article">
-                <img
-                  src={article.imageUrl}
-                  alt={article.title}
-                  className="article-image"
-                />
-                <h3 className="article-title">{article.title}</h3>
-                <p className="article-excerpt">{article.excerpt}</p>
-                <div className="author-info">
-                  <img
-                    src={article.subImageUrl}
-                    alt="Author"
-                    className="author-image"
-                  />
-                  <div>
-                    <span className="author-name" style={{ display: 'block' }}>
-                      {article.subTitle}
-                    </span>
-                    <span className="publish-date" style={{ display: 'block' }}>
-                      {article.publishDate.toDateString()}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+            {errorMessage ? (
+              <h2 className="error-message">{errorMessage}</h2>
+            ) : (
+              articles.map(article => (
+                <ArticleCard key={article.id} article={article} />
+              ))
+            )}
           </div>
         </div>
       </main>
@@ -137,5 +143,44 @@ const MyBlog = ({ onFilterLatest }) => {
     </div>
   );
 };
+
+// Sub-components for better readability
+const FeaturedArticleComponent = ({ article }) => (
+  <div className="featured-article">
+    <div className="featured-image">
+      <img src={article.imageUrl} alt="Featured article" />
+    </div>
+    <div className="featured-content">
+      <h2 className="featured-title">{article.title}</h2>
+      <p className="featured-text">{article.excerpt}</p>
+      <AuthorInfo article={article} />
+    </div>
+  </div>
+);
+
+const ArticleCard = ({ article }) => (
+  <div className="article">
+    <img src={article.imageUrl} alt={article.title} className="article-image" />
+    <h3 className="article-title">{article.title}</h3>
+    <p className="article-excerpt">{article.excerpt}</p>
+    <AuthorInfo article={article} />
+  </div>
+);
+
+const AuthorInfo = ({ article }) => (
+  <div className="author-info">
+    <img
+      src={article.subImageUrl}
+      alt="Author"
+      className="author-image"
+    />
+    <div>
+      <span className="author-name">{article.subTitle}</span>
+      <span className="publish-date">
+        {article.publishDate.toDateString()}
+      </span>
+    </div>
+  </div>
+);
 
 export default MyBlog;

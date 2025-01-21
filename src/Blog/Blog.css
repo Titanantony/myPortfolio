@@ -1,3 +1,6 @@
+/* ======================
+   Global Styles
+   ====================== */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -5,6 +8,9 @@ body {
     color: #fff;
 }
 
+/* ======================
+   Layout Components
+   ====================== */
 .design-journal {
     font-family: sans-serif;
     display: flex;
@@ -18,6 +24,9 @@ body {
     overflow: auto;
 }
 
+/* ======================
+   Sidebar
+   ====================== */
 .sidebar {
     display: none;
     position: fixed;
@@ -25,19 +34,10 @@ body {
     left: 0;
     width: 20%;
     height: 50%;
+    padding: 2rem;
     border-right: 1px solid #e5e5e5;
     overflow-y: auto;
-    padding: 2rem;
     z-index: 1;
-    /* Ensure the sidebar is on top of other content */
-}
-
-.content {
-
-    /* Adjust the content width to make space for the sidebar */
-    width: 100%;
-    padding: 2rem;
-    padding-top: 0rem;
 }
 
 .sidebar-title {
@@ -56,53 +56,65 @@ body {
     margin-bottom: 0.5rem;
 }
 
+/* ======================
+   Main Content Area
+   ====================== */
+.content {
+    width: 100%;
+    padding: 2rem 2rem 0;
+}
+
+/* ======================
+   Filter Bar & Tags
+   ====================== */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
 
 .tag {
     display: inline-block;
     padding: 0.25rem 0.5rem;
-    background-color: #f3f4f6;
     border-radius: 9999px;
     font-size: 0.875rem;
-    margin-right: 0.4rem;
-    margin-bottom: 1rem;
+    background-color: #f3f4f6;
     color: #001417;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.main-title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+.tag.active {
+    background-color: #00e0d0;
+    font-weight: 500;
+
 }
 
-.subtitle {
-    color: #fff;
-    margin-bottom: 2rem;
+.tag:hover {
+    background-color: #00e0d0;
 }
 
+/* ======================
+   Featured Article
+   ====================== */
 .featured-article {
     display: flex;
-    /* height: 30%; */
     flex-direction: column;
     margin-bottom: 40px;
 }
 
 .featured-image {
     width: 100%;
-    overflow: hidden;
+    height: 18rem;
     margin-bottom: 2rem;
-    height: 80%;
-
+    overflow: hidden;
 }
 
 .featured-image img {
-
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-.featured-content {
-    margin: auto;
 }
 
 .featured-title {
@@ -112,10 +124,39 @@ body {
 }
 
 .featured-text {
-    color: #fff;
     margin-bottom: 1rem;
 }
 
+/* ======================
+   Articles Grid
+   ====================== */
+.articles-grid {
+    display: grid;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.article-image {
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.article-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.article-excerpt {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+/* ======================
+   Author Information
+   ====================== */
 .author-info {
     display: flex;
     align-items: center;
@@ -130,80 +171,32 @@ body {
 
 .author-name {
     font-size: 0.875rem;
-    /* margin-right: 0.5rem; */
 }
 
 .publish-date {
     font-size: 0.7rem;
-    color: #fff;
+    display: block;
 }
 
-.articles-grid {
-    display: grid;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-
-.article-image {
-    width: 100%;
-    height: 12rem;
-    object-fit: cover;
-    margin-bottom: 1rem;
-}
-
-.article-title {
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.article-excerpt {
-    font-size: 0.875rem;
-    color: #fff;
-    margin-bottom: 1rem;
-}
-
-/* .pagination {
-    display: flex;
-    justify-content: space-between;
-}
-
-.pagination-btn {
-    color: #fff;
-    background: none;
-    border: none;
-    font-size: 0.875rem;
-    font-weight: 600;
-    cursor: pointer;
-} */
-
+/* ======================
+   Footer
+   ====================== */
 .footer {
-    /* padding: 50px 0; */
     color: #ffffff;
     background-color: #04353c;
 }
 
 .footer-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     padding: 0 100px;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .footer-left,
 .footer-right {
-    /* background-color: transparent; */
     padding: 1rem;
     border-radius: 10px;
-}
-
-.footer-left h2 {
-    font-size: 24px;
-}
-
-.footer-left p {
-    font-size: 14px;
-    line-height: 1.6;
 }
 
 .social-links a {
@@ -212,46 +205,14 @@ body {
     font-size: 24px;
 }
 
-.footer-contact {
-    margin-bottom: 20px;
-}
-
 .footer-contact h4 {
     font-size: 18px;
     margin-bottom: 10px;
 }
 
-.footer-contact p,
-.footer-contact a {
-    margin: 5px 0;
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.footer-contact a:hover {
-    text-decoration: underline;
-}
-
-/* Media queries for smaller screens */
-@media (max-width: 768px) {
-    .footer-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-.article-image {
-    width: 100%;
-    height: 15rem;
-    object-fit: cover;
-    margin-bottom: 1rem;
-}
-
-.featured-image {
-    height: 18rem;
-}
-
-
-
+/* ======================
+   Responsive Design
+   ====================== */
 @media (min-width: 768px) {
     .sidebar {
         display: block;
@@ -278,11 +239,24 @@ body {
     .articles-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-
 }
 
 @media (min-width: 1024px) {
     .main-title {
         font-size: 2.5rem;
     }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ======================
+   Accessibility & Interactions
+   ====================== */
+button:focus {
+    outline: 2px solid #2196F3;
+    outline-offset: 2px;
 }
