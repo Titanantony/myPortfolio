@@ -1,52 +1,72 @@
-import React from 'react';
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import './RootLayout.css';
+// RootLayout.jsx - Enhanced navigation
+import React from 'react'
+import { NavLink, Outlet, useMatch } from 'react-router-dom'
+import './RootLayout.css'
+// import ScrollRestoration from './components/ScrollRestoration'
 
 function RootLayout() {
-  const location = useLocation();
+ 
+  const isBlogRoot = useMatch('/myBlog')
+  const isArticlePage = useMatch('/myBlog/article/:slug')
 
-  const isHomePage = location.pathname === '/';
-  const linkText = isHomePage ? 'My Blog' : 'My Website';
-  const linkTo = isHomePage ? '/myBlog' : '/';
+  const renderNavigation = () => {
+    if (isArticlePage) {
+      return (<>
+        <NavLink to="/myBlog" className="nav-link-blog back-link">
+          ← Back to Articles
+        </NavLink>
+        
+      </>
 
-  const blogLinks = (
-    <div className="nav-link-blog">    
-        My blog Articles
-    </div>
-  );
+      )
+    }
 
-  const websiteLinks = (
-    <div className="website-nav">
-      <a href="#projects" className="nav-link-blog">
-        Project
-      </a>
-      <NavLink to="#skills" className="nav-link-blog">
-        Skills
-      </NavLink>
-      <NavLink to="#education" className="nav-link-blog">
-        Education
-      </NavLink>
-      <NavLink to="#contact" className="nav-link-blog">
-        Contact
-      </NavLink>
-    </div>
-  );
+    return isBlogRoot ? (
+      <div className="blog-categories">
+        <h2>My Articles</h2>
+      </div>
+    ) : (
+      <div className="website-nav">
+        <NavLink to="#projects" className="nav-link-blog">
+          Projects
+        </NavLink>
+        <NavLink to="#skills" className="nav-link-blog">
+          Skills
+        </NavLink>
+        <NavLink to="#education" className="nav-link-blog">
+          Education
+        </NavLink>
+        <NavLink to="#contact" className="nav-link-blog">
+          Contact
+        </NavLink>
+      </div>
+    )
+  }
 
   return (
     <div className="rootLayout">
+      {/* <ScrollRestoration /> */}
       <nav className="nav">
-        <h1 className="logo">Antony</h1>
-        {isHomePage ? websiteLinks : blogLinks}
-        <NavLink to={linkTo} className="get-started-btn">
-          {linkText}
+        
+          <h1 className="logo">Antony</h1>
+
+
+        <div className="nav-main">{renderNavigation()}</div>
+
+        <NavLink
+          to={isBlogRoot || isArticlePage ? '/' : '/myBlog'}
+          className="website-blog"
+          aria-label={isBlogRoot ? 'View Portfolio' : 'View Blog'}
+        >
+          {isBlogRoot || isArticlePage ? 'My Website' : 'My Blog'}
         </NavLink>
       </nav>
 
-      <main>
+      <main className="content-wrapper">
         <Outlet />
       </main>
     </div>
-  );
+  )
 }
 
-export default RootLayout;
+export default RootLayout

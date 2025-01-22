@@ -3,6 +3,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import './Blog.css';
 import Footer from '../SharedComponents/Footer';
 import { db } from './Firebase/Firebase';
+import { Link } from 'react-router-dom';
 
 const FILTERS = {
   LATEST: 'Recently Published',
@@ -51,13 +52,18 @@ const MyBlog = ({ onFilterLatest }) => {
 
   // Filter handlers
   const handleFilter = (keyword, filterName) => {
-    setActiveFilter(filterName);
-    const filtered = allArticles.filter(article => 
-      article.hashTag?.toLowerCase().includes(keyword.toLowerCase())
-    );
-    handleFilterResponse(filtered, keyword);
-  };
-
+  setActiveFilter(filterName);
+  const filtered = allArticles.filter(article => {
+    // Validate hashTag structure
+    if (!Array.isArray(article.hashTag)) return false;
+    
+    return article.hashTag.some(tag => {
+      if (typeof tag !== 'string') return false;
+      return tag.toLowerCase().includes(keyword.toLowerCase());
+    });
+  });
+  handleFilterResponse(filtered, keyword);
+};
   const handleLatestFilter = () => {
     setActiveFilter(FILTERS.LATEST);
     const sorted = sortArticlesByDate(allArticles);
@@ -146,6 +152,7 @@ const MyBlog = ({ onFilterLatest }) => {
 
 // Sub-components for better readability
 const FeaturedArticleComponent = ({ article }) => (
+  <Link to={`/myBlog/article/${article.slug}`} className="featured-article-link" >
   <div className="featured-article">
     <div className="featured-image">
       <img src={article.imageUrl} alt="Featured article" />
@@ -156,15 +163,18 @@ const FeaturedArticleComponent = ({ article }) => (
       <AuthorInfo article={article} />
     </div>
   </div>
+  </Link>
 );
 
 const ArticleCard = ({ article }) => (
-  <div className="article">
+  <Link to={`/myBlog/article/${article.slug}`} className="article-link">
+  <div className='article'>
     <img src={article.imageUrl} alt={article.title} className="article-image" />
     <h3 className="article-title">{article.title}</h3>
     <p className="article-excerpt">{article.excerpt}</p>
     <AuthorInfo article={article} />
   </div>
+  </Link>
 );
 
 const AuthorInfo = ({ article }) => (
