@@ -1,0 +1,11 @@
+.add-article-page {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgb(238, 235, 235);
+}
+
+.add-article-page h1 {
+    color: #00e0d0;
+    margin-bottom: 2rem;
+}
