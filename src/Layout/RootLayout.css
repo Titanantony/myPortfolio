@@ -17,6 +17,7 @@
     font-family: 'Cursive';
     color: #00e0d0;
     font-size: 24px;
+    text-decoration: none;
 }
 
 .nav-link-blog {
@@ -54,4 +55,42 @@
         display: none;
     }
 
+}
+
+/* RootLayout.css additions */
+.nav-main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.blog-categories {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.back-link {
+    color: #00e0d0;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .blog-categories {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-main {
+        order: 3;
+        width: 100%;
+        margin: 1rem 0;
+    }
 }
