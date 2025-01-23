@@ -52,7 +52,7 @@
 
 @media (max-width: 335px) {
     .website-blog {
-        display: none;
+        margin-right: 1rem;
     }
 
 }
@@ -88,9 +88,5 @@
         align-items: center;
     }
 
-    .nav-main {
-        order: 3;
-        width: 100%;
-        margin: 1rem 0;
-    }
+
 }
